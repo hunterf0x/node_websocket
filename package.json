@@ -1,0 +1,8 @@
+{
+  "name": "node-con-websocket",
+  "version": "0.0.1",
+  "author": "hunterfox",
+  "dependencies": {
+    "socket.io": "0.9.17"
+  }
+}

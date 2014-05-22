@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<form id="frm">
+    <input type="text" name="texto" id="datos"/>
+    <input type="submit" name="btnEnviar" value="Enviar"/>
+</form>
+<div id="recibir"></div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://127.0.0.1:3000/socket.io/socket.io.js"></script>
+<script>
+    var webSocket = io.connect("http://127.0.0.1:3000");
+    $(document).on('ready', inicio);
+
+    function inicio(){
+        $('#frm').on('submit', enviar_datos);
+        webSocket.on("datos_servidor", recibir_datos);
+    }
+
+    function enviar_datos(e){
+        e.preventDefault();
+        var dato =  $('#frm').find('#datos').val();
+        webSocket.emit('datos_cliente',dato);
+    }
+
+    function recibir_datos(data){
+        $('#recibir').append('<br>'+data);
+    }
+</script>
+</body>
+</html>
